@@ -1,17 +1,18 @@
 <template>
   <div>
-    <CustomersComponent />
+    <EmpleadosDetalle />
   </div>
 </template>
 
 <script>
 // import CochesComponent from "./components/CochesComponent.vue";
-import CustomersComponent from "./components/CustomersComponent.vue";
+// import CustomersComponent from "./components/CustomersComponent.vue";
+import EmpleadosDetalle from './components/EmpleadosDetalle.vue';
 
 export default {
   name: "App",
   components: {
-    CustomersComponent,
+    EmpleadosDetalle,
   },
 };
 </script>
