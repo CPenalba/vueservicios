@@ -10,46 +10,39 @@
       </select>
       <button class="btn btn-info">Detalles empleado</button>
     </form>
-    <hr/>
+    <hr />
     <div v-if="empleado">
-        <h2>Oficio: {{ empleado.oficio }}</h2>
-        <h2>Salario: {{ empleado.salario }}</h2>
-        <h2>Iddepart: {{ empleado.departamento }}</h2>
+      <h2>Oficio: {{ empleado.oficio }}</h2>
+      <h2>Salario: {{ empleado.salario }}</h2>
+      <h2>Iddepart: {{ empleado.departamento }}</h2>
     </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import Global from "@/Global";
+import ServiceEmpleados from "@/services/SericeEmpleados";
+
+const service = new ServiceEmpleados();
 
 export default {
   name: "EmpleadosDetalle",
-  methods:{
-buscarEmpleado() {
-    let request = "api/empleados/" + this.idEmpleado;
-    var url = Global.urlApiEmpleados + request;
-    axios.get(url).then((response) => {
-      console.log("Leyendo servicio");
-      this.empleado = response.data;
-    });
-
-
-}
+  methods: {
+    buscarEmpleado() {
+      service.findEmpleado(this.idEmpleado).then((result) => {
+        this.empleado = result;
+      });
+    },
   },
   data() {
     return {
       empleados: [],
       idEmpleado: 0,
-      empleado:null
+      empleado: null,
     };
   },
   mounted() {
-    let request = "api/empleados";
-    let url = Global.urlApiEmpleados + request;
-    axios.get(url).then((response) => {
-      console.log("Leyendo servicio");
-      this.empleados = response.data;
+    service.getEmpleados().then((result) => {
+      this.empleados = result;
     });
   },
 };

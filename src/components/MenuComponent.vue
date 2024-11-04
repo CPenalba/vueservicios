@@ -47,9 +47,11 @@
               >
               <ul className="dropdown-menu">
                 <li v-for="ofi in oficios" :key="ofi">
-                  <router-link class="dropdown-item" to="/empleados">{{
-                    ofi
-                  }}</router-link>
+                  <router-link
+                    class="dropdown-item"
+                    :to="'/empleadosoficios/' + ofi"
+                    >{{ ofi }}</router-link
+                  >
                 </li>
               </ul>
             </li>
@@ -61,8 +63,9 @@
 </template>
 
 <script>
-import Global from "@/Global";
-import axios from "axios";
+import ServiceEmpleados from "@/services/SericeEmpleados";
+
+const service = new ServiceEmpleados();
 
 export default {
   name: "MenuComponent",
@@ -72,10 +75,8 @@ export default {
     };
   },
   mounted() {
-    let request = "api/empleados/oficios";
-    let url = Global.urlApiEmpleados + request;
-    axios.get(url).then((response) => {
-      this.oficios = response.data;
+    service.getOficios().then((result) => {
+      this.oficios = result;
     });
   },
 };
